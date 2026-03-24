@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon Coach Sport & Famille 2026</title>
+    <title>Mon Coach Cardio-Famille - 28 Jours</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #f0f4f8; max-width: 950px; margin: auto; padding: 15px; color: #333; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f4f8; max-width: 1000px; margin: auto; padding: 15px; color: #333; }
         .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 20px; }
         h1, h2 { color: #2e7d32; text-align: center; }
         .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; background: #e8f5e9; padding: 15px; border-radius: 10px; margin-bottom: 20px; }
         .res-val { font-size: 1.8em; font-weight: bold; color: #1b5e20; text-align: center; grid-column: span 2; }
-        .tabs { display: flex; gap: 5px; margin-bottom: 15px; overflow-x: auto; }
-        .tab-btn { flex: 1; padding: 10px; border: none; border-radius: 8px; background: #cbd5e0; cursor: pointer; white-space: nowrap; font-weight: bold; }
+        .tabs { display: flex; gap: 5px; margin-bottom: 15px; overflow-x: auto; padding-bottom: 5px; }
+        .tab-btn { flex: 1; padding: 12px; border: none; border-radius: 8px; background: #cbd5e0; cursor: pointer; white-space: nowrap; font-weight: bold; }
         .tab-btn.active { background: #2e7d32; color: white; }
-        .recipe-table { width: 100%; border-collapse: collapse; font-size: 0.9em; }
-        .recipe-table th, .recipe-table td { border: 1px solid #edf2f7; padding: 12px; text-align: left; }
-        .recipe-table th { background: #f8fafc; color: #2e7d32; }
-        .moi-tip { background: #fff3e0; padding: 5px; border-radius: 4px; font-weight: bold; color: #e67e22; display: block; margin-top: 5px; }
+        .recipe-table { width: 100%; border-collapse: collapse; font-size: 0.85em; }
+        .recipe-table th, .recipe-table td { border: 1px solid #edf2f7; padding: 10px; text-align: left; }
+        .recipe-table th { background: #f8fafc; color: #2e7d32; position: sticky; top: 0; }
+        .moi-tip { background: #fff3e0; padding: 5px; border-radius: 4px; font-weight: bold; color: #d35400; display: block; margin-top: 5px; border-left: 3px solid #e67e22; }
         .check-area { margin-top: 10px; border-top: 1px dashed #ccc; padding-top: 10px; }
         label { display: block; padding: 8px 0; cursor: pointer; border-bottom: 1px solid #f0f0f0; }
         input[type="checkbox"] { transform: scale(1.4); margin-right: 15px; }
@@ -24,10 +24,10 @@
 </head>
 <body>
 
-    <h1>🏆 Mon Programme Ventre Plat & Sport</h1>
+    <h1>🥗 Sport, Famille & Coeur (99kg)</h1>
 
     <div class="card">
-        <h2>🔥 Bilan Calories Journalier</h2>
+        <h2>🔥 Mon Bilan Calories (Tapis & Repas)</h2>
         <div class="calc-grid">
             <div>
                 <label>Tapis (min) :</label>
@@ -43,60 +43,73 @@
                 </select>
             </div>
             <div class="res-val" id="bilanFinal">Bilan : 0 kcal</div>
-            <div id="statut" style="grid-column: span 2; text-align: center; font-weight: bold;">Cochez vos repas ci-dessous 👇</div>
+            <div id="statut" style="grid-column: span 2; text-align: center; font-weight: bold;">Cochez vos repas 👇</div>
         </div>
 
         <div class="check-area" id="repasDuJour">
-            <strong>Matin :</strong>
-            <label><input type="checkbox" class="meal" data-cal="450" onchange="calculer()"> P'tit déj : Café lait + Skyr + Banane + 2 Pain complet</label>
-            <strong>Midi & Soir (Cochez ce que vous mangez) :</strong>
-            <label><input type="checkbox" class="meal" data-cal="650" onchange="calculer()"> Plat type "Bolo / Poulet / Poisson" + 50% Légumes</label>
-            <label><input type="checkbox" class="meal" data-cal="750" onchange="calculer()"> Plat type "Saucisse / Merguez / Parmentier" + 50% Légumes</label>
-            <label><input type="checkbox" class="meal" data-cal="550" onchange="calculer()"> Soir : 2 Croques / Sandwich Thon / Concombre farci</label>
-            <label><input type="checkbox" class="meal" data-cal="150" onchange="calculer()"> Dessert : Fruit + Yaourt 0%</label>
+            <label><input type="checkbox" class="meal" data-cal="450" onchange="calculer()"> Petit-déj Sport (Skyr, Banane, Café au lait)</label>
+            <label><input type="checkbox" class="meal" data-cal="750" onchange="calculer()"> Midi : Plat Famille + Version 50/50 Légumes</label>
+            <label><input type="checkbox" class="meal" data-cal="600" onchange="calculer()"> Soir : Croque / Thon / Concombre farci</label>
+            <label><input type="checkbox" class="meal" data-cal="150" onchange="calculer()"> Collation : Fruit / Yaourt fruit 0%</label>
         </div>
     </div>
 
     <div class="card">
-        <h2>🍴 Recettes Complètes (4 Semaines)</h2>
+        <h2>🍴 Planning Repas 4 Semaines</h2>
         <div class="tabs">
             <button class="tab-btn active" onclick="showWeek(1)">Sem. 1</button>
             <button class="tab-btn" onclick="showWeek(2)">Sem. 2</button>
             <button class="tab-btn" onclick="showWeek(3)">Sem. 3</button>
             <button class="tab-btn" onclick="showWeek(4)">Sem. 4</button>
         </div>
-        <div id="content"></div>
+        <div id="content" style="overflow-x: auto;"></div>
     </div>
 
     <script>
         const weeks = {
             1: [
-                ["Lundi", "Spaghetti Bolognaise Maison", "Bœuf 5%, coulis tomate, oignons. <span class='moi-tip'>Moi : Remplace 50% des pâtes par des Courgettes rondelles surgelées.</span>"],
-                ["Mercredi", "Pavé de Saumon au Four & Riz", "Saumon grillé, riz basmati. <span class='moi-tip'>Moi : Ajoute 50% de Chou-fleur surgelé dans le riz.</span>"],
-                ["Vendredi", "Croque-Monsieur Familial", "Pain de mie, jambon de dinde, emmental. <span class='moi-tip'>Moi : 2 croques max + grande salade de tomates/concombre.</span>"]
+                ["Lun", "Pâtes Bolognaise", "Moi: 50% Pâtes / 50% Courgettes surgelées."],
+                ["Mar", "Steak Haché & Purée", "Moi: Purée mélangée 50/50 Chou-fleur mixé."],
+                ["Mer", "Saumon au four & Riz", "Moi: Ajoute Carottes rondelles dans le riz."],
+                ["Jeu", "Blancs de Poulet Crème", "Moi: Champignons frais + Courgettes vapeur."],
+                ["Ven", "Sandwich Thon Mayo", "Moi: Concombre farci au Thon/Fromage Blanc."],
+                ["Sam", "Poulet Maroilles & Frites", "Moi: Dose de poulet OK, 1 poignée de frites + 50% Haricots verts."],
+                ["Dim", "Omelette Fromage", "Moi: Omelette 3 blancs/1 jaune + Salade tomate."]
             ],
             2: [
-                ["Lundi", "Hachis Parmentier Maison", "Viande hachée 5%, purée maison (lait demi-écrémé). <span class='moi-tip'>Moi : Mélange la purée 50/50 avec du Chou-fleur mixé.</span>"],
-                ["Mercredi", "Poulet au Maroilles", "Blancs de poulet, sauce crème légère/Maroilles fondu. <span class='moi-tip'>Moi : Dose sur le poulet, peu de sauce, + Carottes rondelles.</span>"],
-                ["Vendredi", "Sandwich Thon Mayo / Pain Bagnat", "Thon, maïs, salade, peu de mayo. <span class='moi-tip'>Moi : Version Concombre farci (Thon/Fromage blanc) sans pain.</span>"]
+                ["Lun", "Hachis Parmentier", "Moi: Couche de viande OK, couche purée 50/50 Chou-fleur."],
+                ["Mar", "Merguez & Riz épicé", "Moi: 1 Merguez max + Carottes rondelles dans le riz."],
+                ["Mer", "Poisson blanc & Patates", "Moi: 50% Patates / 50% Chou-fleur."],
+                ["Jeu", "Pâtes Carbonara (Dinde)", "Moi: Sauce légère + Courgettes rondelles."],
+                ["Ven", "2 Croque-Monsieur", "Moi: Salade verte géante sans sauce grasse."],
+                ["Sam", "Saucisses & Frites", "Moi: Saucisse bouillie puis grillée + 50% Carottes."],
+                ["Dim", "Salade Thon & Lentilles", "Moi: Thon au naturel rincé + Oignons + Maïs."]
             ],
             3: [
-                ["Lundi", "Saucisses de Toulouse & Purée", "Saucisses grillées, purée de patates. <span class='moi-tip'>Moi : 1 seule saucisse (piquée et bouillie avant) + 50% Carottes.</span>"],
-                ["Mercredi", "Pâtes à la Carbonara Légère", "Crème 5%, jambon de dinde (au lieu des lardons). <span class='moi-tip'>Moi : 50% Pâtes / 50% Courgettes surgelées.</span>"],
-                ["Vendredi", "Omelette Fromage & Frites au four", "Oeufs, emmental, frites maison (peu d'huile). <span class='moi-tip'>Moi : Omelette (3 blancs/1 jaune) + Salade (pas de frites).</span>"]
+                ["Lun", "Émincé de Poulet & Riz", "Moi: Courgettes mélangées au riz chaud."],
+                ["Mar", "Steak & Haricots Verts", "Moi: Augmente les haricots, réduit les patates."],
+                ["Mer", "Spaghetti Thon Tomate", "Moi: 50% Pâtes / 50% Courgettes surgelées."],
+                ["Jeu", "Saucisse de Toulouse / Purée", "Moi: Purée mélangée au Chou-fleur."],
+                ["Ven", "Pain Bagnat Thon", "Moi: Thon/Fromage blanc dans Concombre (zéro pain)."],
+                ["Sam", "Poulet Maroilles & Riz", "Moi: Sauce Maroilles légère + dose de Chou-fleur."],
+                ["Dim", "Omelette & Tomates", "Moi: Blancs d'œufs + 1 fruit en dessert."]
             ],
             4: [
-                ["Lundi", "Merguez & Riz aux épices", "Merguez grillées, riz pilaf. <span class='moi-tip'>Moi : 1 Merguez max + Riz mélangé 50/50 avec Carottes/Chou-fleur.</span>"],
-                ["Mercredi", "Blancs de Poulet à la Crème", "Poulet, champignons, crème légère. <span class='moi-tip'>Moi : Accompagne avec 50% Riz / 50% Courgettes.</span>"],
-                ["Vendredi", "Soirée Thon & Fromage Frais", "Grandes tartines thon/fromage. <span class='moi-tip'>Moi : Salade de Lentilles au thon + Concombre (Zéro pain).</span>"]
+                ["Lun", "Merguez & Pâtes", "Moi: 1 merguez + Courgettes surgelées."],
+                ["Mar", "Hachis Parmentier", "Moi: Salade verte à côté pour caler l'estomac."],
+                ["Mer", "Saumon & Patates", "Moi: Vapeur pour tout le monde, sauce citron."],
+                ["Jeu", "Poulet au four & Carottes", "Moi: Peau du poulet retirée + dose de carottes."],
+                ["Ven", "2 Croque-Monsieur", "Moi: Tranches de tomates dans le croque."],
+                ["Sam", "Steak & Frites", "Moi: Poignée de frites + Salade de concombre."],
+                ["Dim", "Riz Thon Maïs", "Moi: Fromage blanc 0% pour lier au lieu de la mayo."]
             ]
         };
 
         function showWeek(w) {
             document.querySelectorAll('.tab-btn').forEach((b, i) => b.className = (i+1 == w) ? 'tab-btn active' : 'tab-btn');
-            let html = `<table class="recipe-table"><tr><th>Jour</th><th>Plat Famille & Ma Version 50/50</th></tr>`;
+            let html = `<table class="recipe-table"><tr><th>Jour</th><th>Plat Famille</th><th>Ma Version Sport (99kg)</th></tr>`;
             weeks[w].forEach(r => {
-                html += `<tr><td><strong>${r[0]}</strong></td><td>${r[1]}<br>${r[2]}</td></tr>`;
+                html += `<tr><td><strong>${r[0]}</strong></td><td>${r[1]}</td><td><span class='moi-tip'>${r[2]}</span></td></tr>`;
             });
             html += `</table>`;
             document.getElementById('content').innerHTML = html;
@@ -107,13 +120,13 @@
             document.querySelectorAll('.meal').forEach(cb => { if (cb.checked) totalMange += parseInt(cb.getAttribute('data-cal')); });
             const min = document.getElementById('tMin').value;
             const inc = document.getElementById('tInc').value;
-            let caloriesSport = Math.round(min * (6.5 + (inc * 0.7))); // Calcul pour 99kg
+            let caloriesSport = Math.round(min * (6.5 + (inc * 0.75))); // Spécifique 99kg
             let bilan = totalMange - caloriesSport;
             document.getElementById('bilanFinal').innerText = "Bilan : " + (totalMange > 0 ? bilan : 0) + " kcal";
             const s = document.getElementById('statut');
-            if (totalMange === 0) s.innerText = "Cochez vos repas ci-dessus 👇";
-            else if (bilan <= 1900) { s.innerText = "Déficit Parfait ! Perte de ventre ✅"; s.style.color = "#2e7d32"; }
-            else { s.innerText = "Trop de calories aujourd'hui ⚠️"; s.style.color = "#c0392b"; }
+            if (totalMange === 0) s.innerText = "Cochez vos repas 👇";
+            else if (bilan <= 1950) { s.innerText = "Déficit OK : Le ventre va fondre ! ✅"; s.style.color = "#2e7d32"; }
+            else { s.innerText = "Bilan trop haut pour perdre ⚠️"; s.style.color = "#c0392b"; }
         }
 
         showWeek(1);
