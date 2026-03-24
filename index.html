@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Coach Cardio-Sport 4 Semaines</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f4f8; color: #333; max-width: 900px; margin: auto; padding: 15px; }
+        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        h1, h2 { color: #2e7d32; text-align: center; margin-top: 0; }
+        .tab-nav { display: flex; gap: 5px; margin-bottom: 15px; overflow-x: auto; }
+        .tab-btn { flex: 1; padding: 10px; border: none; border-radius: 8px; background: #cbd5e0; cursor: pointer; white-space: nowrap; }
+        .tab-btn.active { background: #2e7d32; color: white; }
+        .menu-table { width: 100%; border-collapse: collapse; font-size: 0.85em; }
+        .menu-table th, .menu-table td { border: 1px solid #edf2f7; padding: 8px; text-align: left; }
+        .menu-table th { background: #f8fafc; }
+        .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .input-group { display: flex; flex-direction: column; gap: 5px; }
+        input, select { padding: 10px; border-radius: 8px; border: 1px solid #cbd5e0; font-size: 16px; }
+        .result-box { grid-column: span 2; background: #e8f5e9; padding: 15px; border-radius: 10px; text-align: center; border-left: 5px solid #2e7d32; }
+        .res-val { font-size: 1.4em; font-weight: bold; color: #1b5e20; }
+        .pt-dej { border-left: 4px solid #3498db; padding-left: 10px; background: #ebf8ff; padding: 10px; border-radius: 5px; }
+        .tip { font-size: 0.8em; color: #e67e22; font-weight: bold; }
+        @media (max-width: 600px) { .calc-grid { grid-template-columns: 1fr; } .result-box { grid-column: span 1; } }
+    </style>
+</head>
+<body>
+
+    <h1>🚀 Objectif 1800-2000 kcal / jour</h1>
+
+    <div class="card pt-dej">
+        <h2>☕ Mon Matin Sportif</h2>
+        <p><strong>Café au lait</strong> (Demi-écrémé, peu sucré) + <strong>1 bol de Skyr ou Fromage Blanc 0%</strong> (pour les muscles) + <strong>1 Banane</strong> (énergie sport) + 2 tranches de pain complet.</p>
+    </div>
+
+    <div class="card">
+        <h2>🔥 Calculateur Tapis & Déficit</h2>
+        <div class="calc-grid">
+            <div class="input-group">
+                <label>Minutes de Tapis :</label>
+                <input type="number" id="tapisMin" value="40" oninput="calculer()">
+            </div>
+            <div class="input-group">
+                <label>Inclinaison :</label>
+                <select id="tapisInc" onchange="calculer()">
+                    <option value="0">0% (Plat)</option>
+                    <option value="4">4% (Léger)</option>
+                    <option value="8" selected>8% (Brûle Gras)</option>
+                    <option value="12">12% (Rando)</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Total mangé (kcal) :</label>
+                <input type="number" id="mangeKcal" value="2100" oninput="calculer()">
+            </div>
+            <div class="result-box">
+                <div>Dépense Tapis : <span id="depenseTapis">400</span> kcal</div>
+                <div class="res-val" id="bilanFinal">Bilan : 1700 kcal</div>
+                <div id="statut">Déficit Parfait ! ✅</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>📅 Menus Famille (3 Pers.)</h2>
+        <div class="tab-nav">
+            <button class="tab-btn active" onclick="showWeek(1)">Sém. 1</button>
+            <button class="tab-btn" onclick="showWeek(2)">Sém. 2</button>
+            <button class="tab-btn" onclick="showWeek(3)">Sém. 3</button>
+            <button class="tab-btn" onclick="showWeek(4)">Sém. 4</button>
+        </div>
+        <div id="weekContent">
+            </div>
+    </div>
+
+    <script>
+        const menus = {
+            1: [
+                ["Lun", "Pâtes Bolo", "Courgettes", "Thon/Maïs", "Concombre"],
+                ["Mer", "Saumon / Riz", "Carottes", "2 Croques + Salade", "Tomates"],
+                ["Ven", "Poulet / Purée", "Chou-fleur", "Sandwich Thon Mayo", "Concombre"]
+            ],
+            2: [
+                ["Lun", "Saucisse / Patates", "Carottes", "Omelette (Blancs)", "Salade"],
+                ["Mer", "Steak / Pâtes", "Courgettes", "Hachis Parmentier", "Salade"],
+                ["Ven", "Poisson / Riz", "Chou-fleur", "Pain Bagnat Thon", "Concombre"]
+            ],
+            3: [
+                ["Lun", "Poulet Maroilles", "Courgettes", "Salade Lentilles", "Tomates"],
+                ["Mer", "Saucisse / Riz", "Carottes", "2 Croques + Salade", "Concombre"],
+                ["Ven", "Merguez / Patates", "Chou-fleur", "Skyr + Fruits", "Pomme"]
+            ],
+            4: [
+                ["Lun", "Hachis Parmentier", "Salade", "Thon / Fromage frais", "Concombre"],
+                ["Mer", "Saumon / Pâtes", "Courgettes", "Omelette Fromage", "Salade"],
+                ["Ven", "Poulet / Riz", "Carottes", "2 Croques + Salade", "Tomates"]
+            ]
+        };
+
+        function showWeek(w) {
+            document.querySelectorAll('.tab-btn').forEach((b, i) => b.className = (i+1 == w) ? 'tab-btn active' : 'tab-btn');
+            let html = '<table class="menu-table"><tr><th>Jour</th><th>Midi (Base)</th><th>Moi (+Légume)</th><th>Soir (Thème)</th><th>Moi (+Légume)</th></tr>';
+            menus[w].forEach(r => {
+                html += `<tr><td>${r[0]}</td><td>${r[1]}</td><td class="tip">+${r[2]}</td><td>${r[3]}</td><td class="tip">+${r[4]}</td></tr>`;
+            });
+            html += '</table>';
+            document.getElementById('weekContent').innerHTML = html;
+        }
+
+        function calculer() {
+            const min = document.getElementById('tapisMin').value;
+            const inc = document.getElementById('tapisInc').value;
+            const mange = document.getElementById('mangeKcal').value;
+            
+            // Calcul simplifié : 99kg x distance estimée
+            let caloriesBrulees = Math.round(min * (6 + (inc * 0.7)));
+            let bilan = mange - caloriesBrulees;
+            
+            document.getElementById('depenseTapis').innerText = caloriesBrulees;
+            document.getElementById('bilanFinal').innerText = "Bilan : " + bilan + " kcal";
+            
+            const statut = document.getElementById('statut');
+            if (bilan < 1700) { statut.innerText = "Déficit Fort (Perte rapide) 🔥"; statut.style.color = "#d35400"; }
+            else if (bilan <= 2000) { statut.innerText = "Déficit Parfait ! ✅"; statut.style.color = "#27ae60"; }
+            else { statut.innerText = "Trop de calories pour perdre ⚠️"; statut.style.color = "#c0392b"; }
+        }
+
+        showWeek(1);
+        calculer();
+    </script>
+</body>
+</html>
